@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya's Store - Product Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="logo">
+                <img src="logo.png" alt="Store Logo" style="height: 36px; width: auto; filter: drop-shadow(0 0 8px var(--accent-primary-glow));">
+                <h2 style="font-size: 1.25rem;">Aditya's Store</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active" data-target="view-dashboard"><i class="ph ph-squares-four"></i> Dashboard</a>
+                <a href="#" data-target="view-products"><i class="ph ph-package"></i> Products</a>
+                <a href="#" data-target="view-orders"><i class="ph ph-shopping-cart"></i> Orders</a>
+                <a href="#" data-target="view-analytics"><i class="ph ph-chart-line-up"></i> Analytics</a>
+                <a href="#" data-target="view-settings"><i class="ph ph-gear"></i> Settings</a>
+            </nav>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=101115&color=0df5e3&bold=true" alt="Admin User">
+                <div class="user-info">
+                    <span class="name">Admin User</span>
+                    <span class="role">Workspace Manager</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header (Global) -->
+            <header class="top-header glass-panel">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="search" placeholder="Search product inventory...">
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><i class="ph ph-bell"></i></button>
+                    <!-- Navigates to Products view and focuses form -->
+                    <button class="btn-primary" id="global-new-product-btn"><i class="ph ph-plus"></i> New Product</button>
+                </div>
+            </header>
+
+            <!-- VIEWS CONTAINER -->
+            <div class="views-container">
+                
+                <!-- VIEW: DASHBOARD -->
+                <section id="view-dashboard" class="view-section active">
+                    <div class="view-header">
+                        <h2>Dashboard Overview</h2>
+                        <p>Welcome back! Here's what's happening with your store today.</p>
+                    </div>
+                    
+                    <!-- Dashboard Stats Widgets -->
+                    <div class="stats-grid">
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="color: #0df5e3; background: rgba(13, 245, 227, 0.1);"><i class="ph ph-package"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-title">Total Products</span>
+                                <span class="stat-value" id="stat-total-products">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="color: #a78bfa; background: rgba(167, 139, 250, 0.1);"><i class="ph ph-check-circle"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-title">Active Items</span>
+                                <span class="stat-value" id="stat-active-items">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.1);"><i class="ph ph-currency-dollar"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-title">Inventory Value</span>
+                                <span class="stat-value" id="stat-inventory-value">$0.00</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon" style="color: #f472b6; background: rgba(244, 114, 182, 0.1);"><i class="ph ph-trend-up"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-title">Recent Sales</span>
+                                <span class="stat-value">+14% <i class="ph ph-arrow-up-right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Analytics Widget on Dashboard -->
+                    <section class="analytics-widget glass-panel" style="margin-top: 24px;">
+                        <div class="widget-header">
+                            <h2>Weekly Sales Trends</h2>
+                            <span class="badge">This Week</span>
+                        </div>
+                        <div class="css-chart" style="height: 250px;">
+                            <div class="chart-bar"><div class="bar-fill" style="height: 45%"></div><span class="bar-label">Mon</span></div>
+                            <div class="chart-bar"><div class="bar-fill" style="height: 60%"></div><span class="bar-label">Tue</span></div>
+                            <div class="chart-bar"><div class="bar-fill" style="height: 35%"></div><span class="bar-label">Wed</span></div>
+                            <div class="chart-bar"><div class="bar-fill active" style="height: 85%"></div><span class="bar-label">Thu</span></div>
+                            <div class="chart-bar"><div class="bar-fill" style="height: 50%"></div><span class="bar-label">Fri</span></div>
+                            <div class="chart-bar"><div class="bar-fill" style="height: 70%"></div><span class="bar-label">Sat</span></div>
+                            <div class="chart-bar"><div class="bar-fill" style="height: 90%"></div><span class="bar-label">Sun</span></div>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- VIEW: PRODUCTS -->
+                <section id="view-products" class="view-section">
+                    <div class="content-grid">
+                        <div class="left-panel">
+                            <!-- Product Form Widget -->
+                            <section class="form-section glass-panel">
+                                <h2 id="form-title">Add New Product</h2>
+                                <form id="product-form">
+                                    <input type="hidden" id="product-id">
+                                    <div class="form-group floating">
+                                        <input type="text" id="title" placeholder=" " required>
+                                        <label for="title">Product Title</label>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group floating half">
+                                            <input type="number" id="price" placeholder=" " step="0.01" min="0.01" required>
+                                            <label for="price">Price ($)</label>
+                                        </div>
+                                        <div class="form-group floating half">
+                                            <select id="category" required>
+                                                <option value="" disabled selected></option>
+                                                <option value="Electronics">Electronics</option>
+                                                <option value="Fashion">Fashion</option>
+                                                <option value="Grocery">Grocery</option>
+                                                <option value="Books">Books</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                            <label for="category">Category</label>
+                                            <i class="ph ph-caret-down select-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group floating">
+                                        <input type="url" id="image" placeholder=" " required>
+                                        <label for="image">Image URL</label>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" id="submit-btn" class="btn-primary"><i class="ph ph-plus"></i> Add Product</button>
+                                        <button type="button" id="cancel-btn" class="btn-secondary hidden">Cancel</button>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+
+                        <div class="right-panel">
+                            <!-- Controls (Filter/Sort) -->
+                            <div class="controls-container glass-panel">
+                                <div class="controls-header">
+                                    <h3>Inventory (<span id="product-count">0</span>)</h3>
+                                </div>
+                                <div class="controls-actions">
+                                    <div class="filter-wrapper">
+                                        <i class="ph ph-funnel"></i>
+                                        <select id="filter">
+                                            <option value="All">All Categories</option>
+                                            <option value="Electronics">Electronics</option>
+                                            <option value="Fashion">Fashion</option>
+                                            <option value="Grocery">Grocery</option>
+                                            <option value="Books">Books</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <i class="ph ph-caret-down select-icon"></i>
+                                    </div>
+                                    <div class="sort-buttons">
+                                        <button id="sort-asc" class="btn-outline" title="Sort Lowest Price First"><i class="ph ph-sort-ascending"></i></button>
+                                        <button id="sort-desc" class="btn-outline" title="Sort Highest Price First"><i class="ph ph-sort-descending"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Grid -->
+                            <div id="product-grid" class="product-grid"></div>
+                            
+                            <!-- Empty State -->
+                            <div id="empty-state" class="empty-state glass-panel hidden">
+                                <i class="ph ph-ghost empty-icon"></i>
+                                <h3>No products found</h3>
+                                <p>Adjust your filters or add a new product to populate your inventory.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW: ORDERS -->
+                <section id="view-orders" class="view-section">
+                    <div class="view-header">
+                        <h2>Order Management</h2>
+                        <p>Track and manage customer orders.</p>
+                    </div>
+                    <div class="empty-state glass-panel" style="margin-top: 24px;">
+                        <i class="ph ph-shopping-cart empty-icon"></i>
+                        <h3>No active orders</h3>
+                        <p>When customers place orders, they will appear here.</p>
+                        <button class="btn-primary" style="margin-top: 16px;"><i class="ph ph-download"></i> Export Order History</button>
+                    </div>
+                </section>
+
+                <!-- VIEW: ANALYTICS -->
+                <section id="view-analytics" class="view-section">
+                    <div class="view-header">
+                        <h2>Deep Analytics</h2>
+                        <p>Comprehensive insights into your business performance.</p>
+                    </div>
+                    <div class="content-grid" style="margin-top: 24px;">
+                        <section class="analytics-widget glass-panel" style="grid-column: 1 / -1;">
+                            <div class="widget-header">
+                                <h2>Revenue Growth</h2>
+                                <span class="badge">Monthly</span>
+                            </div>
+                            <div class="css-chart" style="height: 300px;">
+                                <div class="chart-bar"><div class="bar-fill" style="height: 25%"></div><span class="bar-label">Jan</span></div>
+                                <div class="chart-bar"><div class="bar-fill" style="height: 30%"></div><span class="bar-label">Feb</span></div>
+                                <div class="chart-bar"><div class="bar-fill" style="height: 45%"></div><span class="bar-label">Mar</span></div>
+                                <div class="chart-bar"><div class="bar-fill" style="height: 50%"></div><span class="bar-label">Apr</span></div>
+                                <div class="chart-bar"><div class="bar-fill" style="height: 65%"></div><span class="bar-label">May</span></div>
+                                <div class="chart-bar"><div class="bar-fill active" style="height: 90%"></div><span class="bar-label">Jun</span></div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+
+                <!-- VIEW: SETTINGS -->
+                <section id="view-settings" class="view-section">
+                    <div class="view-header">
+                        <h2>Workspace Settings</h2>
+                        <p>Manage your account and platform preferences.</p>
+                    </div>
+                    <div class="content-grid" style="margin-top: 24px; grid-template-columns: 1fr; max-width: 800px;">
+                        <div class="glass-panel" style="padding: 32px;">
+                            <div style="display: flex; gap: 24px; margin-bottom: 32px; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 24px;">
+                                <img src="https://ui-avatars.com/api/?name=Admin+User&background=101115&color=0df5e3&bold=true&size=100" style="border-radius: 50%; border: 3px solid var(--border-color);">
+                                <div>
+                                    <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Profile Picture</h3>
+                                    <button class="btn-secondary btn-sm">Upload New</button>
+                                </div>
+                            </div>
+                            
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group floating half">
+                                        <input type="text" placeholder=" " value="Admin User">
+                                        <label>Full Name</label>
+                                    </div>
+                                    <div class="form-group floating half">
+                                        <input type="email" placeholder=" " value="admin@adityastore.co">
+                                        <label>Email Address</label>
+                                    </div>
+                                </div>
+                                <div class="form-group floating" style="margin-top: 16px;">
+                                    <select>
+                                        <option value="usd">USD ($)</option>
+                                        <option value="eur">EUR (€)</option>
+                                        <option value="gbp">GBP (£)</option>
+                                    </select>
+                                    <label>Default Currency</label>
+                                    <i class="ph ph-caret-down select-icon"></i>
+                                </div>
+                                <div style="margin-top: 32px; display: flex; justify-content: flex-end;">
+                                    <button type="button" class="btn-primary" onclick="alert('Settings saved!')"><i class="ph ph-floppy-disk"></i> Save Preferences</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+            </div> <!-- END VIEWS CONTAINER -->
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
